@@ -7,10 +7,10 @@ import (
 	"encoding/binary"
 	"flag"
 	"fmt"
-	"io/ioutil"
 	"log"
 	"math/big"
 	mrand "math/rand"
+	"os"
 	"strconv"
 	"strings"
 	"time"
@@ -21,7 +21,7 @@ import (
 var hex = "abcef12345678890"
 
 func GenerateNumer(min, max int) string {
-	mrand.Seed(time.Now().UnixNano())
+	mrand.NewSource(time.Now().UnixNano())
 	num := mrand.Intn(max-min) + min
 	n := num
 	s := strconv.Itoa(n)
@@ -74,13 +74,13 @@ func main() {
 	if opt.outFile == "" {
 		log.Fatal("Error: Please provide a name for the final file")
 	}
-	InputFileData, err := ioutil.ReadFile(opt.inputFile)
+	InputFileData, err := os.ReadFile(opt.inputFile)
 
 	if err != nil {
 		log.Fatalf("Error: %s", err)
 	}
 	if opt.CertCloner != "" {
-		FiletoCopy, err := ioutil.ReadFile(opt.CertCloner)
+		FiletoCopy, err := os.ReadFile(opt.CertCloner)
 		if err != nil {
 			log.Fatalf("Error: %s", err)
 		}
@@ -95,7 +95,7 @@ func main() {
 	}
 
 	fmt.Println("[!] Writing to new file " + opt.outFile)
-	ioutil.WriteFile(opt.outFile, InputFileData, 0777)
+	os.WriteFile(opt.outFile, InputFileData, 0777)
 
 }
 
