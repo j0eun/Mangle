@@ -1,5 +1,5 @@
 module Mangle
 
-go 1.19
+go 1.22.4
 
-require github.com/Binject/debug v0.0.0-20211007083345-9605c99179ee
+require github.com/Binject/debug v0.0.0-20230508195519-26db73212a7a
